@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
-import { useDispatch } from "react-redux";
-import { addCart } from "../redux/action";
-import { Footer, Navbar } from "../components";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Footer, Navbar } from "../components";
+import { addCart } from "../redux/action";
 
 const Product = () => {
   const { id } = useParams();

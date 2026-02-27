@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
-import { Footer, Navbar } from "../components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from "react-i18next";
+import { Footer, Navbar } from "../components";
 
 const Login = () => {
   const { t, i18n } = useTranslation();

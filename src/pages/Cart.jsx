@@ -1,8 +1,7 @@
-import React from "react";
-import { Footer, Navbar } from "../components";
-import { useSelector, useDispatch } from "react-redux";
-import { addCart, delCart } from "../redux/action";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Footer, Navbar } from "../components";
+import { addCart, delCart } from "../redux/action";
 
 const Cart = () => {
 

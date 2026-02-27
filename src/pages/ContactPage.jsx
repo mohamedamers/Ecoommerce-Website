@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Footer, Navbar } from "../components";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from "react-i18next";
+import { Footer, Navbar } from "../components";
 
 const ContactPage = () => {
   const { t, i18n } = useTranslation();

@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { Footer, Navbar } from "../components";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { Footer, Navbar } from "../components";
 
 const Checkout = () => {
   const state = useSelector((state) => state.handleCart);
-  const dispatch = useDispatch();
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
   // فانكشن لما يدوس Checkout

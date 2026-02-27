@@ -15,6 +15,7 @@ const resources = {
       logout: "Logout",
       cart: "Cart",
       hi: "Hi",
+      all : "All",
 
       // Register Page
       register_title: "Register",
@@ -63,6 +64,7 @@ const resources = {
       logout: "خروج",
       cart: "السلة",
       hi: "أهلاً",
+      all : "الكل",
 
       // Register Page
       register_title: "إنشاء حساب",
