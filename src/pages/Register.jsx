@@ -3,10 +3,10 @@ import { Footer, Navbar } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next"; // استيراد الترجمة
 
 const Register = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation(); // تفعيل الترجمة
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -37,27 +37,24 @@ const Register = () => {
     const { name, email, password } = formData;
 
     if (!name || !email || !password) {
-      toast.error(t("validation_error"));
+      toast.error(t("validation_error")); // ترجمة التنبيه
       return;
     }
 
     if (password.length < 6) {
-      toast.info(t("pass_short"));
+      toast.info(t("pass_short")); // ترجمة التنبيه
       return;
     }
 
     const userData = { name, email, password, userImage };
     localStorage.setItem("registeredUser", JSON.stringify(userData));
 
-    toast.success(t("reg_success"));
+    toast.success(t("reg_success")); // ترجمة النجاح
 
     setTimeout(() => {
       navigate("/login");
     }, 2000);
   };
-
-  // كلاس المحاذاة بناءً على اللغة
-  const alignmentClass = i18n.language === "ar" ? "text-end" : "text-start";
 
   return (
     <>
@@ -67,8 +64,7 @@ const Register = () => {
         <hr />
         <div className="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
-            <form onSubmit={handleSubmit} className={alignmentClass}>
-              {/* رفع الصورة */}
+            <form onSubmit={handleSubmit}>
               <div className="form my-3 text-center">
                 {userImage && (
                   <img
@@ -90,14 +86,12 @@ const Register = () => {
                   accept="image/*"
                   onChange={handleImageChange}
                 />
-                <small className="text-muted">{t("upload_img")}</small>
+                <small className="text-muted">
+                  {t("upload_img")}
+                </small>
               </div>
-
-              {/* خانة الاسم */}
               <div className="form my-3">
-                <label htmlFor="name" className="form-label w-100">
-                  {t("full_name")}
-                </label>
+                <label htmlFor="name">{t("full_name")}</label>
                 <input
                   type="text"
                   className="form-control"
@@ -107,12 +101,8 @@ const Register = () => {
                   onChange={handleChange}
                 />
               </div>
-
-              {/* خانة الإيميل */}
               <div className="form my-3">
-                <label htmlFor="email" className="form-label w-100">
-                  {t("email_label")}
-                </label>
+                <label htmlFor="email">{t("email_label")}</label>
                 <input
                   type="email"
                   className="form-control"
@@ -122,12 +112,8 @@ const Register = () => {
                   onChange={handleChange}
                 />
               </div>
-
-              {/* خانة الباسورد */}
               <div className="form my-3">
-                <label htmlFor="password" className="form-label w-100">
-                  {t("password_label")}
-                </label>
+                <label htmlFor="password">{t("password")}</label>
                 <input
                   type="password"
                   className="form-control"
@@ -137,10 +123,9 @@ const Register = () => {
                   onChange={handleChange}
                 />
               </div>
-
               <div className="my-3 text-center">
                 <button className="btn btn-dark w-100" type="submit">
-                  {t("reg_btn")}
+                  {t("register")}
                 </button>
                 <p className="mt-3">
                   {t("already_account")}{" "}
@@ -156,7 +141,7 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <ToastContainer position="top-center" autoClose={2000} theme="colored" />
+      <ToastContainer position="top-right" autoClose={2000} theme="colored" />
       <Footer />
     </>
   );

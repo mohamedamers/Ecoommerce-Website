@@ -8,7 +8,7 @@ import { addCart } from "../redux/action";
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState([]);
-  const [loading, setLoading] = useState(false); // إضافة حالة تحميل اختيارية
+  const [loading, setLoading] = useState(false);
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -29,7 +29,6 @@ const Products = () => {
   };
 
   useEffect(() => {
-    // التصحيح: تعريف المتغير داخل useEffect
     let componentMounted = true;
 
     const getProducts = async () => {
@@ -46,7 +45,6 @@ const Products = () => {
 
     getProducts();
 
-    // دالة التنظيف لمنع الأخطاء عند إغلاق الصفحة قبل اكتمال التحميل
     return () => {
       componentMounted = false;
     };
@@ -146,14 +144,14 @@ const Products = () => {
       <div className="row">
         <div className="col-12">
           <h2 className="display-5 text-center fw-bold">
-            {t("latest_products")}
+            {t("products")}
           </h2>
           <hr />
         </div>
       </div>
       <div className="row justify-content-center">
         {loading ? (
-          <div className="text-center py-5">Loading...</div>
+          <div className="text-center py-5">{t("loading_msg")}</div>
         ) : (
           <ShowProducts />
         )}

@@ -1,26 +1,22 @@
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { Footer, Navbar } from "../components";
+import { useTranslation } from "react-i18next"; // استيراد الترجمة
 
 const Checkout = () => {
+  const { t } = useTranslation(); // تفعيل الترجمة
   const state = useSelector((state) => state.handleCart);
-  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
 
-  // فانكشن لما يدوس Checkout
   const handleCheckout = (e) => {
     e.preventDefault();
-    
-    // إظهار رسالة نجاح شيك
-    toast.success("Order Placed Successfully! Thank you for shopping. 🛍️", {
+
+    toast.success(t("order_placed_msg"), {
       position: "top-center",
       autoClose: 3000,
     });
-
-    // ممكن هنا تعمل Dispatch لـ Action يمسح الكارت (لو عندك Action للاسم ده)
-    // dispatch({type: "EMPTY_CART"}); 
 
     setTimeout(() => {
       navigate("/");
@@ -32,9 +28,9 @@ const Checkout = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-12 py-5 bg-light text-center">
-            <h4 className="p-3 display-5">Your cart is empty</h4>
+            <h4 className="p-3 display-5">{t("cart_empty")}</h4>
             <Link to="/" className="btn btn-dark mx-4">
-              <i className="fa fa-arrow-left"></i> Continue Shopping
+              <i className="fa fa-arrow-left"></i> {t("continue_shopping")}
             </Link>
           </div>
         </div>
@@ -60,20 +56,21 @@ const Checkout = () => {
             <div className="col-md-5 col-lg-4 order-md-last">
               <div className="card mb-4">
                 <div className="card-header py-3 bg-light">
-                  <h5 className="mb-0">Order Summary</h5>
+                  <h5 className="mb-0">{t("order_summary")}</h5>
                 </div>
                 <div className="card-body">
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                      Products ({totalItems})<span>${Math.round(subtotal)}</span>
+                      {t("items_count")} ({totalItems})
+                      <span>${Math.round(subtotal)}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center px-0">
-                      Shipping
+                      {t("shipping")}
                       <span>${shipping}</span>
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                       <div>
-                        <strong>Total amount</strong>
+                        <strong>{t("total_amount")}</strong>
                       </div>
                       <span>
                         <strong>${Math.round(subtotal + shipping)}</strong>
@@ -88,33 +85,55 @@ const Checkout = () => {
             <div className="col-md-7 col-lg-8">
               <div className="card mb-4">
                 <div className="card-header py-3">
-                  <h4 className="mb-0">Billing address</h4>
+                  <h4 className="mb-0">{t("billing_address")}</h4>
                 </div>
                 <div className="card-body">
                   <form onSubmit={handleCheckout}>
                     <div className="row g-3">
                       <div className="col-sm-6 my-1">
-                        <label className="form-label">First name</label>
-                        <input type="text" className="form-control" placeholder="John" required />
+                        <label className="form-label">{t("first_name")}</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Frist name"
+                          required
+                        />
                       </div>
 
                       <div className="col-sm-6 my-1">
-                        <label className="form-label">Last name</label>
-                        <input type="text" className="form-control" placeholder="Doe" required />
+                        <label className="form-label">{t("last_name")}</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Last name"
+                          required
+                        />
                       </div>
 
                       <div className="col-12 my-1">
-                        <label className="form-label">Email</label>
-                        <input type="email" className="form-control" placeholder="you@example.com" required />
+                        <label className="form-label">{t("email_label")}</label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          placeholder="you@gmail.com"
+                          required
+                        />
                       </div>
 
                       <div className="col-12 my-1">
-                        <label className="form-label">Address</label>
-                        <input type="text" className="form-control" placeholder="1234 Main St" required />
+                        <label className="form-label">
+                          {t("address_label")}
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="1234 Main St"
+                          required
+                        />
                       </div>
 
                       <div className="col-md-5 my-1">
-                        <label className="form-label">Country</label>
+                        <label className="form-label">{t("country")}</label>
                         <select className="form-select" required>
                           <option value="">Choose...</option>
                           <option>Egypt</option>
@@ -123,7 +142,7 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-4 my-1">
-                        <label className="form-label">State</label>
+                        <label className="form-label">{t("state_label")}</label>
                         <select className="form-select" required>
                           <option value="">Choose...</option>
                           <option>Cairo</option>
@@ -132,39 +151,44 @@ const Checkout = () => {
                       </div>
 
                       <div className="col-md-3 my-1">
-                        <label className="form-label">Zip</label>
+                        <label className="form-label">{t("zip")}</label>
                         <input type="text" className="form-control" required />
                       </div>
                     </div>
 
                     <hr className="my-4" />
-                    <h4 className="mb-3">Payment</h4>
+                    <h4 className="mb-3">{t("payment")}</h4>
 
                     <div className="row gy-3">
                       <div className="col-md-6">
-                        <label className="form-label">Name on card</label>
+                        <label className="form-label">{t("card_name")}</label>
                         <input type="text" className="form-control" required />
                       </div>
 
                       <div className="col-md-6">
-                        <label className="form-label">Credit card number</label>
+                        <label className="form-label">{t("card_number")}</label>
                         <input type="text" className="form-control" required />
                       </div>
 
                       <div className="col-md-3">
-                        <label className="form-label">Expiration</label>
-                        <input type="text" className="form-control" placeholder="MM/YY" required />
+                        <label className="form-label">{t("expiration")}</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="MM/YY"
+                          required
+                        />
                       </div>
 
                       <div className="col-md-3">
-                        <label className="form-label">CVV</label>
+                        <label className="form-label">{t("cvv")}</label>
                         <input type="text" className="form-control" required />
                       </div>
                     </div>
 
                     <hr className="my-4" />
                     <button className="w-100 btn btn-dark btn-lg" type="submit">
-                      Complete Purchase
+                      {t("complete_purchase")}
                     </button>
                   </form>
                 </div>
@@ -180,7 +204,7 @@ const Checkout = () => {
     <>
       <Navbar />
       <div className="container my-3 py-3">
-        <h1 className="text-center">Checkout</h1>
+        <h1 className="text-center">{t("checkout_title")}</h1>
         <hr />
         {state.length > 0 ? <ShowCheckout /> : <EmptyCart />}
       </div>

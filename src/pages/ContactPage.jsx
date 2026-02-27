@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from "react";
+import { Footer, Navbar } from "../components";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Footer, Navbar } from "../components";
+import { useTranslation } from "react-i18next";
 
 const ContactPage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
+  // 1. حالة تخزين بيانات الرسالة
   const [msgData, setMsgData] = useState({
     name: "",
     email: "",
@@ -18,18 +19,22 @@ const ContactPage = () => {
     setMsgData((prev) => ({ ...prev, [id]: value }));
   };
 
+  // 2. فانكشن الإرسال
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // تشيك سريع
     if (!msgData.name || !msgData.email || !msgData.message) {
-      toast.error(t("fill_fields_error"));
+      toast.error(t("contact_validation"));
       return;
     }
+
+    // محاكاة إرسال الرسالة
     toast.success(t("msg_success"));
+
+    // تصفير الفورم بعد الإرسال
     setMsgData({ name: "", email: "", message: "" });
   };
-
-  // ديناميك كلاس عشان نضمن المحاذاة حسب اللغة
-  const alignmentClass = i18n.language === "ar" ? "text-end" : "text-start";
 
   return (
     <>
@@ -39,68 +44,56 @@ const ContactPage = () => {
         <hr />
         <div className="row my-4 h-100">
           <div className="col-md-6 col-lg-5 col-sm-10 mx-auto">
-            <form onSubmit={handleSubmit} className={alignmentClass}>
-              {/* خانة الاسم */}
+            <form onSubmit={handleSubmit}>
               <div className="form my-3">
-                <label htmlFor="name" className="form-label w-100">
-                  {t("name_label")}
-                </label>
+                <label htmlFor="name">{t("name")}</label>
                 <input
                   type="text"
                   className="form-control"
                   id="name"
-                  placeholder={t("name_placeholder")}
+                  placeholder={t("Your_name")}
                   value={msgData.name}
                   onChange={handleChange}
                   required
                 />
               </div>
-
-              {/* خانة الإيميل */}
               <div className="form my-3">
-                <label htmlFor="email" className="form-label w-100">
-                  {t("email_label")}
-                </label>
+                <label htmlFor="email">{t("email_label")}</label>
                 <input
                   type="email"
                   className="form-control"
                   id="email"
-                  placeholder={t("email_placeholder")}
+                  placeholder={t("Your_email")}
                   value={msgData.email}
                   onChange={handleChange}
                   required
                 />
               </div>
-
-              {/* خانة الرسالة */}
               <div className="form my-3">
-                <label htmlFor="message" className="form-label w-100">
-                  {t("msg_label")}
-                </label>
+                <label htmlFor="message">{t("message")}</label>
                 <textarea
                   rows={5}
                   className="form-control"
                   id="message"
-                  placeholder={t("msg_placeholder")}
+                  placeholder={t("Your_message")}
                   value={msgData.message}
                   onChange={handleChange}
                   required
                 />
               </div>
-
               <div className="text-center">
                 <button
                   className="my-2 px-4 mx-auto btn btn-dark"
                   type="submit"
                 >
-                  {t("send_btn")}
+                  {t("Send Message")}
                 </button>
               </div>
             </form>
           </div>
         </div>
       </div>
-      <ToastContainer position="top-center" theme="colored" autoClose={3000} />
+      <ToastContainer position="top-right" theme="colored" autoClose={3000} />
       <Footer />
     </>
   );

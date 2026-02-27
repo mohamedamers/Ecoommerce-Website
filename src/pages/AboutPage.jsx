@@ -1,8 +1,9 @@
-import { useTranslation } from "react-i18next";
+import React from "react";
 import { Footer, Navbar } from "../components";
+import { useTranslation } from "react-i18next"; // استيراد الترجمة
 
 const AboutPage = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // تفعيل الترجمة
 
   return (
     <>

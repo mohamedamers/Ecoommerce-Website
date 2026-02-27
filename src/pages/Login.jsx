@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Footer, Navbar } from "../components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Footer, Navbar } from "../components";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
@@ -22,11 +22,13 @@ const Login = () => {
     e.preventDefault();
     const { email, password } = formData;
 
+    // 1. Validation
     if (!email || !password) {
       toast.error(t("validation_error"));
       return;
     }
 
+    // 2. التحقق من البيانات المخزنة من الريجيستر
     const savedUser = JSON.parse(localStorage.getItem("registeredUser"));
 
     if (
@@ -34,11 +36,11 @@ const Login = () => {
       email === savedUser.email &&
       password === savedUser.password
     ) {
+      // --- هنا فقط بنفعل حالة الدخول اللي النافبار بيشوفها ---
       localStorage.setItem("userEmail", savedUser.email);
       localStorage.setItem("userName", savedUser.name);
       localStorage.setItem("userImage", savedUser.userImage);
 
-      // رسالة ترحيب مترجمة
       toast.success(`${t("welcome_back")}, ${savedUser.name}! 🎉`, {
         position: "top-center",
         autoClose: 2000,
@@ -46,15 +48,12 @@ const Login = () => {
 
       setTimeout(() => {
         navigate("/");
-        window.location.reload();
+        window.location.reload(); // عشان النافبار يقرأ البيانات الجديدة فوراً
       }, 2000);
     } else {
       toast.error(t("auth_error"));
     }
   };
-
-  // تحديد اتجاه النصوص بناءً على اللغة
-  const alignmentClass = i18n.language === "ar" ? "text-end" : "text-start";
 
   return (
     <>
@@ -64,11 +63,9 @@ const Login = () => {
         <hr />
         <div className="row my-4 h-100">
           <div className="col-md-4 col-lg-4 col-sm-8 mx-auto">
-            <form onSubmit={handleSubmit} className={alignmentClass}>
+            <form onSubmit={handleSubmit}>
               <div className="my-3">
-                <label htmlFor="email" className="form-label w-100">
-                  {t("email_label")}
-                </label>
+                <label htmlFor="email">{t("email_label")}</label>
                 <input
                   type="email"
                   className="form-control"
@@ -79,9 +76,7 @@ const Login = () => {
                 />
               </div>
               <div className="my-3">
-                <label htmlFor="password" className="form-label w-100">
-                  {t("password_label")}
-                </label>
+                <label htmlFor="password">{t("password")}</label>
                 <input
                   type="password"
                   className="form-control"
@@ -107,7 +102,7 @@ const Login = () => {
                   className="my-2 mx-auto btn btn-dark w-100"
                   type="submit"
                 >
-                  {t("login_btn")}
+                  {t("login")}
                 </button>
               </div>
             </form>
