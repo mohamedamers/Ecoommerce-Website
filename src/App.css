@@ -1,0 +1,17 @@
+/* ده هيخلي العنوان ياخد سطرين بالظبط وبعدين يحط نقط تلقائي */
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  height: 3rem; /* تثبيت الطول عشان الكروت تبقى متساوية */
+}
+
+/* نفس الكلام للوصف */
+.card-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  height: 4.5rem;
+}
